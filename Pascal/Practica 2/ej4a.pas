@@ -28,4 +28,3 @@ begin
 	writeln(b, a);
 end.
 
-// este programa tiene dos errores y el otro no 
