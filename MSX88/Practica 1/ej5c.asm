@@ -1,0 +1,19 @@
+ORG 1000H
+A DW 5
+B DW 4
+C DW 1
+D DW ?
+ORG 3000H
+CALCULO: MOV AX, A
+         MOV BX, B
+         MOV CX, C
+         MOV DX, 0
+         ADD AX, BX
+         SUB AX, CX
+         MOV DX, AX
+RET
+ORG 2000H
+CALL CALCULO
+MOV D, DX
+HLT
+END
