@@ -1,4 +1,3 @@
-
 program Registros;
 type
 	str20 = string[20];
