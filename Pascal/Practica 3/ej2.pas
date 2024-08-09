@@ -16,60 +16,37 @@ realizados en los primeros 10 días de cada mes. Nota: utilizar el módulo reali
 de fecha
 }
 
-program ej;
+program ej2;
 const
- FIN= 2020;
+    ani = 2019;
+    aneo = 2020;
 type
-    rangoD=1..31; 
-    rangoM=1..12;
-    
+    rangodia= 1..31;
+    rangomes=1..12;
     fecha = record
-            dia: rangoD; 
-            mes:rangoM;
-            anio:integer;
-        end;
-
-
-//procesos
-procedure LeerFecha (var f:fecha);
-begin
-    writeln('Ingrese el año');
-    readln(f.anio);
-    if ( f.anio <> FIN ) then begin
-        writeln('Ingrese el dia');
-        readln(f.dia);
-        writeln('Ingrese el mes');
-        readln(f.mes);
+        dia: rangodia;
+        mes: rangomes;
+        anio: integer;
     end;
-end;
-
-function CantidadMeses(mes:rangoM):boolean;
+procedure leerfecha(var f:fecha);
 begin
-    if ( (mes = 1) or (mes = 2) or (mes = 3) ) then CantidadMeses:=true
-                                               else CantidadMeses:=false;
+    readln(f.dia);
+    readln(f.mes);
+    if (f.anio = ani) and (f.anio <> aneo) then
+        readln(f.anio);
 end;
 
-function CantidadDias(dia:rangoD):boolean;
-begin
-    if ( (dia >= 1) and (dia <= 10) ) then CantidadDias:=true
-                                      else CantidadDias:=false;
-end;
-
-
-//PROGRAMA PRINCIPAL
 var
     f:fecha;
-    cant1,cant2:integer;
 begin
-    cant1:=0; cant2:=0;
-    LeerFecha(f);
-    while ( f.anio <> FIN )do
-    begin
-        if ( CantidadMeses(f.mes) ) then cant1:=cant1+1;
-        if ( CantidadDias(f.dia) ) then cant2:=cant2+1;
-        LeerFecha(f);
+    leerfecha(f);
+    while (f.anio <> aneo) and (f.anio = 2019) do begin
+        if ((f.mes = 1) or (f.mes = 2) or (f.mes  = 3)) and (f.dia <= 10) then begin
+            cantverano:= cantverano + 1;
+            cant10dias:= cant10dias + 1;
+        end;
+        leerfecha(f)
     end;
-    
-    writeln(cant1);
-    writeln(cant2);
+    writeln(cantverano);
+    writeln(cant10dias);
 end.
