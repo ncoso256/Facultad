@@ -1,80 +1,80 @@
-program diez;
+program Ejercicio10;
+type
 
-type {Tipos}
-    cliente = record
-        dni,num: integer;
-    end;
-    lista = ^nodo;
-    nodo = record
-        dato: cliente;
-        sig: lista;
-    end;
-    coladeespera = record
-        pri,ult: lista;
-    end;
+  Cliente = record
+    dni,num: integer;
+  end;
+  Lista = ^nodo;
+  nodo = record
+    dato: Cliente;
+    sig: Lista;
+  end;
+  ColaDeEspera = record
+     pri, ult: Lista;
+  end;
 
-procedure recibircliente(dni: integer; var l:coladeespera);
-var
-    c: cliente;
-    aux: lista;
-begin
-    
-    new(aux);
-    aux^.sig:= nil;
-    c.dni:= dni;
-    if (l.pri = nil) then begin
-        c.num:= 1; 
-        l.pri:= aux;   
-    end
-    else begin 
-        c.num:= l.ult^.dato.num + 1;
-        l.ult^.sig:= aux;
-    end;
-    aux^.dato:= c;
-    l.ult:= aux; 
-end;
-
-procedure atendercliente(var l: coladeespera ; var num, dni:integer);
-{precondicion: la lista }
-var 
-    aux: lista;
-begin
-    num:= l.pri^.dato;
-    dni:= l.pri^.dato.dni;
-    aux:= l.pri;
-    l.pri:= l.pri^.sig;
+  procedure RecibirCliente(dni: integer; var L: ColaDeEspera);
+  var
+   C: Cliente;
+   aux: Lista;
+  begin
+     new(aux);
+     aux^.sig := nil;
+     C.dni := dni;
+     if (L.pri = nil)
+        then begin
+          C.num := 1;
+          L.pri := aux;
+        end
+        else begin
+           C.num := L.ult^.dato.num + 1;
+           L.ult^.sig := aux;
+        end;
+     aux^.dato := C;
+     L.ult := aux;
+  end;
+  
+  procedure AtenderCliente(var L: ColaDeEspera; var num, dni: integer);
+  {Precondición: La lista no está vacía}
+  var
+    aux: Lista;
+  begin
+    num := L.pri^.dato.num;
+    dni := L.pri^.dato.dni;
+    aux := L.pri;
+    L.pri := L.pri^.sig;
     dispose(aux);
-end;
+  end;
 
-procedure simularllegada(var l: coladeespera);
-var
+  procedure SimularLlegada(var L: ColaDeEspera);
+  var
     dni: integer;
-begin
-    writeln('ingrese el dni del cliente');
+  begin
+    writeln('Ingrese el dni del cliente:');
     readln(dni);
-    while (dni <> 0) do begin
-        recibircliente(dni,l);
-        writeln('ingrese el dni del cliente');
-        readln(dni);
+    while(dni <> 0) do begin
+       RecibirCliente(dni,L);
+       writeln('Ingrese el dni del cliente:');
+       readln(dni);
     end;
-end;
+  end;
+  
+  procedure SimularAtencion(var L: ColaDeEspera);
+  var
+    num, dni: integer;
+  begin
+    while(L.pri <> nil) do begin
+      AtenderCliente(L,num,dni);
+      writeln('Sigue el dni: ', dni, ' con el número: ', num);
+    end;
+  end;
 
-procedure simularatencion(var l: coladeespera);
+
 var
-    num,dni: integer;
+  L: ColaDeEspera;
 begin
-    while (l.pri <> nil) do begin
-        atendercliente(l,num,dni);
-        writeln('sigue el dni: ', dni, ' con el numero: ', num);
-    end;
-end;
-
-var {Variables locales al programa ppal}
-    l: coladeespera;
-
-
-begin {Programa principal}
-    l.pri:= nil;
-    simularllegada(l);
-    simularatencion(l);
+  L.pri := nil;
+  SimularLlegada(L);
+  SimularAtencion(L);
 end.
+
