@@ -49,7 +49,6 @@ end;
 
 procedure recorrerlista(l: lista; v: vector; diml: integer);
 var
-	i: integer;
 	ok: boolean;
 begin
 	while (l <> nil) do begin
@@ -68,3 +67,4 @@ begin
 	cargarlista(l);
 	recorrerlista(l,v,dimlog);
 end.
+
