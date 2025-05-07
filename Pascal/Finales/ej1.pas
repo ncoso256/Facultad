@@ -36,13 +36,13 @@ begin
 	end;
 end;
 
-function esirregular(dni: integer; irregulares: integer;diml: integer):boolean;
+function esirregular(dni: integer; irregulares: vector;diml: integer):boolean;
 var
 	i: integer;
 begin
 	esirregular:= false;
 	for i:= 1 to diml do begin
-		if (irregulares = dni) then
+		if (irregulares[i] = dni) then
 			esirregular:= true;
 	end;
 end;
@@ -53,7 +53,7 @@ var
 	ok: boolean;
 begin
 	while (l <> nil) do begin
-		if (esirregular(l^.dato.dni,v[i],diml)) then 
+		if (esirregular(l^.dato.dni,v,diml)) then 
 			eliminarconorden(l,l^.dato.dni,ok);
 		l:= l^.sig;
 	end;
