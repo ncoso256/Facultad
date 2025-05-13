@@ -17,7 +17,7 @@ begin
 		for j:= 1 to 15 do begin
 			readln(haynave);	
 			
-			if (haynave = 1)and(cantbarcos = 7) then begin
+			if (haynave = 1)and(cantbarcos <= 7) then begin
 				ok:= true;
 				cantbarcos:= cantbarcos + 1;
 			end
