@@ -1,3 +1,5 @@
+{3. Dado el siguiente programa, indicar cuál es el error y su causa.}
+
 program alcance3;
 var
 	a: integer; // no encuentra b en el programa principal por lo cual rompe todo en el  writeln(a, b);
