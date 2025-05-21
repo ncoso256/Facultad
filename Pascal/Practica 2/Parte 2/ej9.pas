@@ -1,3 +1,14 @@
+{9. Realizar un programa modularizado que lea información de alumnos de una facultad. 
+Para cada alumno se lee: número de inscripción, apellido y nombre. 
+La lectura finaliza cuando se ingresa el alumno con número de inscripción 1200, que debe procesarse.
+
+Se pide calcular e informar: 
+● Apellido delos dos alumnos con número de inscripción más chico.
+
+● Nombre de los dos alumnos con número de inscripción más grande.
+
+● Porcentaje de alumnos con nro de inscripción par.}
+
 program ej9;
 procedure leerDatos (var numero: integer; var nombre, apellido: string);
 begin
