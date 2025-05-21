@@ -1,3 +1,7 @@
+{8. Realizar un programa modularizado que lea secuencia de números enteros. 
+La lectura finaliza cuando llega el número 123456, el cual no debe procesarse.
+Informar en pantalla para cada número la suma de sus dígitos pares y la cantidad de dígitos impares que posee.}
+
 program ocho;
 procedure analizarnum(num: integer; var p,i: integer);
 var
