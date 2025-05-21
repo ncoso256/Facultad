@@ -1,3 +1,5 @@
+{2. Responda la pregunta en relación al siguiente programa:}
+
 program ej4;
 procedure digparesimpares (num: integer; var par, impar: integer);
 var
@@ -23,4 +25,6 @@ begin
 	until(dato = 100);
 	writeln('pares: ',par, 'impares: ', impar);
 end.
+
+{a. ¿Qué imprime si se lee la siguiente secuencia de valores? 250, 35, 100}
 // a) imprime que hay 4 pares y 4 impares con 250, 35, 100
