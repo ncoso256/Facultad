@@ -1,5 +1,5 @@
 {
-El registro civil de La Plata ha solicitado un programa para analizar la distribución de casamientos durante el
+2. El registro civil de La Plata ha solicitado un programa para analizar la distribución de casamientos durante el
 año 2019. Para ello, cuenta con información de las fechas de todos los casamientos realizados durante ese
 año.
 
