@@ -1,3 +1,5 @@
+{4. Dado los siguientes programas, explicar la diferencia.}
+
 program alcance4a;
 var
 	a, b: integer;
