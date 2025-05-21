@@ -1,3 +1,5 @@
+{1. Dadoel siguiente programa, indicar qué imprime.}
+
 program alcance1;
 var
 	a, b: integer;
