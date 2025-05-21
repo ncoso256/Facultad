@@ -1,3 +1,5 @@
+{5. Dado el siguiente programa, indicar cuál es el error.}
+
 program hola;
 procedure numero;
 var
