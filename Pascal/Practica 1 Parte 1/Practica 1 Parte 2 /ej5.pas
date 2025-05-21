@@ -1,3 +1,14 @@
+{5. Realizar un programa que lea números enteros desde teclado. 
+La lectura debe finalizar cuando se ingrese el número 100, el cual debe procesarse. 
+
+Informar en pantalla: 
+
+● El número máximo leído. 
+
+● Elnúmero mínimo leído. 
+
+● La suma total de los números leídos.}
+
 program ejercicio5;
 var
 	num, suma , nummax, nummin: integer;
