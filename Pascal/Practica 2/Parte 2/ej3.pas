@@ -1,3 +1,6 @@
+{3. Encontrar los 6 errores que existen en el siguiente programa. 
+Utilizar los comentarios entre llaves como guía, indicar en qué línea se encuentra cada error y en qué consiste:}
+
 program ej5;
 	{suma los numeros entre a y b , y retorna el resultado en c}
 procedure sumar(a,b,c: integer);  {error: la correccion seria procedure sumar(a,b,c: integer);}
