@@ -16,7 +16,7 @@ c. Un módulo que reciba la estructura generada en a. y un valor real. Este mód
 retornar los legajos y promedios de los alumnos cuyo promedio supera el valor ingresado.
 }
 
-program NoeNoEsGayPosta;
+program tres;
 type
     alumno = record
         legajo, codigo, fecha, nota: integer;
