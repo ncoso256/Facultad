@@ -22,8 +22,10 @@ del vector obtenido en el punto c).
 }
 
 program tres;
+const
+	dimf = 8;
 type
-	rangocodgen = 1..8;
+	rangocodgen = 1..dimf;
 	pelicula = record
 		codpeli: integer;
 		codgen: rangocodgen;
@@ -35,123 +37,118 @@ type
 		sig: lista;
 	end;
 	
-	vector = array[rangocodgen] of real;
+	vector = array[rangocodgen] of lista;
+	vectorcontador = array[rangocodgen] of real;
 
 procedure leerpelicula(var p: pelicula);
 begin
 	readln(p.codpeli);
-	readln(p.codgen);
-	readln(p.puntajecritica);
+	if (p.codpeli <>-1) then begin
+		readln(p.codgen);
+		readln(p.puntajecritica);
+	end;
 end;
 
-procedure agregaratras(var l,ult: lista; p: pelicula);
+procedure inicializarvector(var v: vector; vc: vectorcontador);
+var
+	i,j: integer;
+begin
+	for i:= 1 to 8 do
+		v[i]:= nil;
+	for j:= 1 to 8 do
+		vc[j]:= 0;
+end;
+
+procedure agregaratras(var l,ult: lista; p:pelicula);
 var
 	nue: lista;
 begin
 	new(nue);
 	nue^.dato:= p;
 	nue^.sig:= nil;
-	if (l = nil) then
+	if (l <> nil) then 
 		l:= nue
-	else begin
+	else
 		ult^.sig:= nue;
-		ult:= nue;
-	end;
+	ult:= nue;
 end;
 
-procedure cargarlista(var l: lista);
+procedure cargarvector(var v: vector; var vc: vectorcontador);
 var
 	p: pelicula;
-	ult: lista;
 begin
-	ult:= nil;
-	repeat
+	inicializarvector(v,vc);
+	leerpelicula(p);
+	while (p.codpeli <> -1) do begin
+		agregaratras(v[p.codgen],v[p.codgen],p);
 		leerpelicula(p);
-		agregaratras(l,ult,p);
-	until (p.codpeli = -1);
+	end;
 end;
 
-procedure inicializar(var v: vector);
+procedure maxymin(punt: real; var puntmax: real;var codmax:integer;var puntmin: real; var mincod:integer);
 var
 	i: integer;
 begin
-	for i:= 1 to 8 do
-		v[i]:= 0;
-end;
-
-procedure maximo(v: vector; var puntmax: real;var codmax: integer);
-var
-	i: integer;
-begin
-	puntmax:= -1;
-	codmax:= 1;
 	for i:= 1 to 8 do begin
-		if (v[i] > puntmax) then begin
-			puntmax:= v[i];
+		if (punt > puntmax) then begin
+			puntmax:= punt;
 			codmax:= i;
 		end;
-	end;
-end;
-
-procedure minimo(v: vector; var puntmin: real; var codmin: integer);
-var
-	i: integer;
-begin
-	puntmin:= 9999;
-	codmin:= 8;
-	for i:= 1 to 8 do begin
-		if (v[i] < puntmin) then begin
-			puntmin:= v[i];
-			codmin:= i;
+		if (punt < puntmin) then begin
+			puntmin:= punt;
+			mincod:= i;
 		end;
 	end;
 end;
 
-procedure recorrerlista(l: lista; var v: vector);
-var
-	actual: rangocodgen;
-	maxpunt,minpunt: real;
-	maxcod,mincod: integer;
+procedure maximoyminimo(l: lista; vcont: vectorcontador; var maxpunt: real; var maxcod: integer; var minpunt: real; var mincod: integer);
 begin
-	inicializar(v);
-	while(l <> nil) do begin
-		actual:= l^.dato.codgen;
-		while (l <> nil) and (actual = l^.dato.codgen) do
-			v[l^.dato.codgen]:= v[l^.dato.codgen] + l^.dato.puntajecritica;
+	maxpunt:= -1;
+	maxcod:= 1;
+	minpunt:= 9999;
+	mincod:= 8;
+	while (l <> nil) do begin
+		maxymin(vcont[l^.dato.codgen],maxpunt,maxcod,minpunt,mincod);
+		l:= l^.sig;
 	end;
-	maximo(v,maxpunt,maxcod);
-	writeln(maxpunt); writeln(maxcod);
-	minimo(v,minpunt,mincod);
-	writeln(minpunt); writeln(mincod);
 end;
 
-
+procedure recorrer(v: vector;var vc: vectorcontador);
+var
+	maxpunt,minpunt: real;
+	maxcod,mincod,i: integer;
+begin
+	for i:= 1 to 8 do begin
+		vc[v[i]^.dato.codgen]:= vc[v[i]^.dato.codgen] + v[i]^.dato.puntajecritica;
+		maximoyminimo(v[i],vc,maxpunt,maxcod,minpunt,mincod);
+	end;
+	writeln(maxpunt);
+	writeln(maxcod);
+	writeln(minpunt);
+	writeln(mincod);
+end;
 
 procedure ordenar_por_seleccion_por_puntaje(var v: vector);
 var
 	i,j,pos: integer;
-	item: real;
+	item: lista;
 begin
-	for i:= 1 to 8-1 do begin {Busca el minimo y guarda en pos la posicion}
+	for i:= 1 to 8-1 do begin
 		pos:= i;
-		for j:= i+1 to 8 do begin
-			if (v[j] < v[pos]) then
+		for j:= i+1 to 8 do 
+			if (v[j]^.dato.puntajecritica < v[pos]^.dato.puntajecritica) then 
 				pos:= j;
-			
-			{Intercambia v[i] y v[j]}
-			item:= v[pos];
-			v[pos]:= v[i];
-			v[i]:= item
-		end;
+		item:= v[pos];
+		v[pos]:= v[i];
+		v[i]:= item;
 	end;
 end;
 
 var
-	l: lista;
 	v: vector;
+	vc: vectorcontador;
 begin
-	l:= nil;
-	cargarlista(l);
-	recorrerlista(l,v);
+	cargarvector(v,vc);
+	recorrer(v,vc);
 	ordenar_por_seleccion_por_puntaje(v);
 end.
