@@ -53,9 +53,9 @@ procedure inicializarvector(var v: vector; vc: vectorcontador);
 var
 	i,j: integer;
 begin
-	for i:= 1 to 8 do
+	for i:= 1 to dimf do
 		v[i]:= nil;
-	for j:= 1 to 8 do
+	for j:= 1 to dimf do
 		vc[j]:= 0;
 end;
 
@@ -89,7 +89,7 @@ procedure maxymin(punt: real; var puntmax: real;var codmax:integer;var puntmin: 
 var
 	i: integer;
 begin
-	for i:= 1 to 8 do begin
+	for i:= 1 to dimf do begin
 		if (punt > puntmax) then begin
 			puntmax:= punt;
 			codmax:= i;
@@ -118,7 +118,7 @@ var
 	maxpunt,minpunt: real;
 	maxcod,mincod,i: integer;
 begin
-	for i:= 1 to 8 do begin
+	for i:= 1 to dimf do begin
 		vc[v[i]^.dato.codgen]:= vc[v[i]^.dato.codgen] + v[i]^.dato.puntajecritica;
 		maximoyminimo(v[i],vc,maxpunt,maxcod,minpunt,mincod);
 	end;
@@ -133,9 +133,9 @@ var
 	i,j,pos: integer;
 	item: lista;
 begin
-	for i:= 1 to 8-1 do begin
+	for i:= 1 to dimf-1 do begin
 		pos:= i;
-		for j:= i+1 to 8 do 
+		for j:= i+1 to dimf do 
 			if (v[j]^.dato.puntajecritica < v[pos]^.dato.puntajecritica) then 
 				pos:= j;
 		item:= v[pos];
