@@ -10,9 +10,9 @@ cuando se lee el precio 0.
 
 b. Una vez almacenados, muestre los códigos de los productos pertenecientes a cada rubro.
 
-c. Genere un vector (de a lo sumo 30 elementos) con los productos del rubro 3. Considerar que
-puede haber más o menos de 30 productos del rubro 3. Si la cantidad de productos del rubro 3
-es mayor a 30, almacenar los primeros 30 que están en la lista e ignore el resto.
+c. Genere un vector (de a lo sumo 30 elementos) con los productos del rubro 3. 
+Considerar que puede haber más o menos de 30 productos del rubro 3. 
+Si la cantidad de productos del rubro 3 es mayor a 30, almacenar los primeros 30 que están en la lista e ignore el resto.
 
 d. Ordene, por precio, los elementos del vector generado en c) utilizando alguno de los dos
 métodos vistos en la teoría.
@@ -22,8 +22,11 @@ e. Muestre los precios del vector resultante del punto d).
 f. Calcule el promedio de los precios del vector resultante del punto d).
 }
 program cuatro;
+const
+	dimf = 30;
 type
 	rangorubro = 1..8;
+	indice = 1..dimf;
 	producto = record
 		codprod: integer;
 		codrubro: rangorubro;
@@ -34,7 +37,7 @@ type
 		dato: producto;
 		sig: lista;
 	end;
-	vector = array [1..30] of lista; {Realmente no se como se hace esto}
+	vector = array [indice] of lista; {Realmente no se como se hace esto}
 
 procedure leerproducto(var p: producto);
 begin
@@ -79,10 +82,28 @@ begin
 	end;
 end;
 
+procedure inicializarvector(var v: vector);
+var
+	i: integer;
+begin
+	for i:= 1 to dimf do 
+		v[i]:= nil;
+end;
+
+procedure cargarvector(var v: vector; var diml: integer);
+begin
+	inicializarvector(v);
+	while ()
+end; {No entiendo que poner en el cargar vector porque dice que puede haber mas de 30 elementos y son a lo sumo 30 no interpreto bien el enunciado.}
+
 var
 	l: lista;
+	v: vector;
+	diml: integer;
 begin
 	l:= nil;
+	diml:= 0;
 	cargarlista(l);
 	recorrerlista(l);
+	cargarvector(v,diml);
 end.
