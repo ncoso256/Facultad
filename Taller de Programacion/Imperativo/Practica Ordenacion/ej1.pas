@@ -71,7 +71,7 @@ begin
 	diml:= 0;
 	Randomize;
 	leerventa(vent);
-	while (vent.dia <> 0) do begin
+	while (vent.dia <> 0)and (diml < max) do begin
 		diml:= diml + 1;
 		v[diml]:= vent;
 		leerventa(vent);
@@ -82,45 +82,39 @@ end;
 procedure ordenarporcodigo(var v: vector; diml: integer);
 var
 	i,j,pos: integer;
-	item: rangocodigoprod;
+	item: venta;
 begin
 	for i:= 1 to diml-1 do begin
 		pos:= i;
 		for j:= i + 1 to diml do
 			if (v[j].codigoprod < v[pos].codigoprod) then
 				pos:= j;
-		item:= v[pos].codigoprod;
+		item:= v[pos];
 		v[pos]:= v[i];
-		v[i].codigoprod:= item; 
+		v[i]:= item; 
 	end;
 end;
 
-function buscarpos(v: vector; diml: integer; codigo1,codigo2: rangocodigoprod):integer;
-var
-	pos: integer;
-begin
-	pos:= 1;
-	while ((pos <= diml) and (v[pos].codigoprod < codigo1) and (v[pos].codigoprod < codigo2)) do
-		pos:= pos + 1;
-	if ((pos <= diml) and ((v[pos].codigoprod = codigo1) or (v[pos].codigoprod = codigo2)) )then 
-		buscarpos:= pos
-	else
-		buscarpos:= 0;
-end;
 
-procedure eliminarventas(var v: vector; var diml: integer; c1,c2: rangocodigoprod; var exito: boolean);
-var
-	i,pos: integer;
-begin
-	pos:= buscarpos(v,diml,c1,c2);
-	exito:= (pos > 0);
-	if (exito) then begin
-		for i:= pos + 1 to diml-1 do
-			v[i-1]:= v[i];
-		diml:= diml - 1;
-	end;
-end;
 
+procedure eliminarrango(var v: vector; var diml: integer; c1,c2: rangocodigoprod; var exito: boolean);
+var
+	i,j: integer;
+begin
+	i:= 1;
+	j:= 1;
+    while ((not((v[i].codigoprod < c1) and (v[i].codigoprod > c2))) and (i < diml)) do begin 
+      exito:= false;
+      i:= i+ 1;
+    end;
+	while ((v[i].codigoprod < c1) and (v[i].codigoprod > c2)) and (i < diml) do begin
+	  exito:= true;
+	  for j:= i to dimL - 1 do 
+	    v[j]:= v[j+1];   
+	  dimL:= dimL - 1;
+	end;                                                         
+end;                      
+             
 procedure inicializar(var v: vectordeproductos);
 var
 	i: integer;
@@ -165,7 +159,7 @@ begin
 	readln(cod1);
 	writeln('Ingrese el segundo codigo, entre 1 y 15');
 	readln(cod2);
-	eliminarventas(ventas,diml,cod1,cod2,ok);
+	eliminarrango(ventas,diml,cod1,cod2,ok);
 	imprimirvector(ventas,diml);
 	
 	inicializar(productos);
