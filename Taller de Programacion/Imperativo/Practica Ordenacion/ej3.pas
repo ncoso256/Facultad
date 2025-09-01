@@ -13,11 +13,25 @@ código de la película -1.
 b. Genere y retorne en un vector, para cada género, el código de película con mayor puntaje
 obtenido entre todas las críticas, a partir de la estructura generada en a)..
 
+for i:= 1 to 8 do begin 
+* 	while (v[i] <> nil) do begin
+* 		if(v[i]^.dato.puntaje > max) then 
+* 			max := v[i]^.dato.puntaje
+* 			idpeli := v[i]^.dato.codpeli;
+*		v[i] := v[i]^.sig;
+* 	end; 
+* 	vc[i].puntaje:=max;
+* 	vc[i].idpeli := idpeli;
+* end 
+* 
 c. Ordene los elementos del vector generado en b) por puntaje utilizando alguno de los dos
 métodos vistos en la teoría.
 
 d. Muestre el código de película con mayor puntaje y el código de película con menor puntaje,
 del vector obtenido en el punto c).
+* 
+* writeln(v[1].puntaje, v[1].idpeli, 'minimo puntaje obtenido');
+* writeln(v[8].puntaje, v[8].idpeli, 'mayor puntaje obtenido');
 
 }
 
@@ -37,8 +51,12 @@ type
 		sig: lista;
 	end;
 	
+	registro = record
+		puntaje: real;
+		idpeli: rangocodgen;
+	end;
 	vector = array[rangocodgen] of lista;
-	vectorcontador = array[rangocodgen] of real;
+	vectorcontador = array[rangocodgen] of registro;
 
 procedure leerpelicula(var p: pelicula);
 begin
@@ -56,7 +74,7 @@ begin
 	for i:= 1 to dimf do
 		v[i]:= nil;
 	for j:= 1 to dimf do
-		vc[j]:= 0;
+		vc[j].puntaje:= 0;
 end;
 
 procedure agregaratras(var l,ult: lista; p:pelicula);
@@ -85,21 +103,7 @@ begin
 	end;
 end;
 
-procedure maxymin(punt: real; var puntmax: real;var codmax:integer;var puntmin: real; var mincod:integer);
-var
-	i: integer;
-begin
-	for i:= 1 to dimf do begin
-		if (punt > puntmax) then begin
-			puntmax:= punt;
-			codmax:= i;
-		end;
-		if (punt < puntmin) then begin
-			puntmin:= punt;
-			mincod:= i;
-		end;
-	end;
-end;
+
 
 procedure maximoyminimo(l: lista; vcont: vectorcontador; var maxpunt: real; var maxcod: integer; var minpunt: real; var mincod: integer);
 begin
@@ -108,9 +112,14 @@ begin
 	minpunt:= 9999;
 	mincod:= 8;
 	while (l <> nil) do begin
-		maxymin(vcont[l^.dato.codgen],maxpunt,maxcod,minpunt,mincod);
+		if (l^.dato.puntajecritica > maxpunt) then begin
+			maxpunt:= l^.dato.puntajecritica;
+			maxcod:= l^.dato.codpeli;
+		end;
 		l:= l^.sig;
 	end;
+	vcont[l^.dato.codgen].puntaje:= maxpunt;
+	vcont[l^.dato.codgen].idpeli:= maxcod; 
 end;
 
 procedure recorrer(v: vector;var vc: vectorcontador);
@@ -119,13 +128,11 @@ var
 	maxcod,mincod,i: integer;
 begin
 	for i:= 1 to dimf do begin
-		vc[v[i]^.dato.codgen]:= vc[v[i]^.dato.codgen] + v[i]^.dato.puntajecritica;
+		vc[v[i]^.dato.codgen].puntaje:= vc[v[i]^.dato.codgen].puntaje + v[i]^.dato.puntajecritica;
 		maximoyminimo(v[i],vc,maxpunt,maxcod,minpunt,mincod);
 	end;
-	writeln(maxpunt);
-	writeln(maxcod);
-	writeln(minpunt);
-	writeln(mincod);
+	writeln(vc[v[i]^.dato.codgen].puntaje); // mayor puntaje obtenido entre todas las criticas desordenado...
+	writeln(vc[v[i]^.dato.codgen].idpeli);
 end;
 
 procedure ordenar_por_seleccion_por_puntaje(var v: vector);
@@ -151,4 +158,6 @@ begin
 	cargarvector(v,vc);
 	recorrer(v,vc);
 	ordenar_por_seleccion_por_puntaje(v);
+	writeln(vc[1].puntaje, vc[1].idpeli, 'minimo puntaje obtenido'); // minimo puntaje obtenido y mayor ordenado!
+	writeln(vc[8].puntaje, vc[8].idpeli, 'mayor puntaje obtenido');
 end.
