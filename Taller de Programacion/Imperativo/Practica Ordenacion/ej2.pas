@@ -40,7 +40,7 @@ var
 begin
 	diml:= 0;
 	leeroficina(o);
-	while (o.codid <> -1) do begin
+	while (o.codid <> -1)and (diml< max) do begin
 		diml:= diml + 1;
 		v[diml]:= o;
 		leeroficina(o);
@@ -51,15 +51,17 @@ procedure ordenar_por_insercion_por_codigo(var v: vector; diml: integer);
 var
 	i,j: integer;
 	actual: integer;
+	actual2: vector;
 begin
 	for i:= 2 to diml do begin 
 		actual:= v[i].codid;
+		actual2 := v[i];
 		j:= i-1;
 		while (j > 0) and (v[j].codid > actual) do begin
 			v[j+1]:= v[j];
 			j:= j - 1;
 		end;
-		v[j+1].codid:= actual;
+		v[j+1]:= actual2;
 	end; 
 end;
 
@@ -77,9 +79,9 @@ begin
 				pos:= j;
 			
 			{Intercambia v[i] y v[j]}
-			item:= v[pos].codid;
+			item:= v[pos];
 			v[pos]:= v[i];
-			v[i].codid:= item
+			v[i]:= item
 		end;
 	end;
 end;
