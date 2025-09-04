@@ -8,8 +8,7 @@ begin
     end;
 end;
 
-var
-    num: integer;
+procedure interprete(n: integer);
 begin
     write('Ingrese un numero decimal (0 para terminar): ');
     readln(num);
@@ -21,4 +20,10 @@ begin
         readln(num);
     end;
     writeln('Programa finalizado.');
+end;
+
+var
+    num: integer;
+begin
+    interprete(num);
 end.
