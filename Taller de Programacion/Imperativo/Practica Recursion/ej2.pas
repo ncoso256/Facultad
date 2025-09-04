@@ -60,25 +60,30 @@ begin
     end; 
 end;
 
-
-procedure minimo (l: lista; var min: integer);
+function min (n,m: integer): integer;
 begin
-    if(l <> nil) then begin
-        if (l^.dato < min) then 
-            min:= l^.dato; 
-        minimo(l^.sig,min)
-    end;
-    writeln('El numero min: ' ,min);
+	if (m> n) then
+ 		min:= n
+   	else
+		min:= m;
+end;
+
+function minimo (l: lista):integer;
+begin
+    if(l = nil) then
+		minimo:= 9999
+	else
+ 		minimo:= min(l^.dato, maximo(l^.sig));
+    writeln('El numero min: ' , minimo(l));
 end;
 
 
-procedure encontre (l: lista; valor: integer; var ok: boolean);
+function encontre (l: lista; valor: integer):boolean;
 begin 
-    if (l<>nil) then begin 
-        if (l^.dato = valor) then 
-            ok:= true; 
-        encontre (l^.sig, valor, ok);
-    end;
+    if (l=nil) then
+		encontre:= false
+  	else
+   		encontre:= (l^.dato = valor) or (encontre(l^.sig,valor));
 end;
 
 //PPl
@@ -92,11 +97,8 @@ begin
     cargarLista(l);
     imprimimamos(l);
     imprimiralreves(l); 
-    min:= 999; 
     minimo (l,min);
-    ok:= false;
     writeln (' ingrese un valor: ');
     readln(valor);
-    encontre(l,valor , ok);
-    writeln ('Que el valor que ingresamos este en la lista es: ', ok);
+    writeln ('Que el valor que ingresamos este en la lista es: ', encontre(l,valor));
 end.
