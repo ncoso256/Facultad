@@ -23,22 +23,30 @@ type
 		sig: lista; 
 	end; 
     
+procedure agregarAdelante(var l: lista; num: integer);
+var
+	nue: lista;
+begin
+	new(nue);
+	nue^.dato:= num;
+	nue^.sig:= l;
+	l:= nue;
+end;
 
 
 
-procedure cargarLista(var l: lista);  {Lo que no sa}
+procedure cargarLista(var l: lista);
 var
     num: integer;
 begin
-    num:= 100 + random(200-100+1);   // genera un número entre 100 y 200
-    if (num = 100) then
-        l := nil                  // caso base: corto la lista
-    else begin
-        new(l);                   // creo nodo
-        l^.dato := num;           // guardo número
-        cargarLista(l^.sig);      // llamada recursiva al resto
-    end;
+    num:= random (101) + 100;
+    if (num <> 100) then
+        begin
+            agregarAdelante(l, num);
+            cargarLista(l);
+        end;
 end;
+
 
 
 
