@@ -74,7 +74,7 @@ begin
 		minimo:= 9999
 	else
  		minimo:= min(l^.dato, maximo(l^.sig));
-    writeln('El numero min: ' , minimo(l));
+    
 end;
 
 
@@ -97,7 +97,7 @@ begin
     cargarLista(l);
     imprimimamos(l);
     imprimiralreves(l); 
-    minimo (l,min);
+    writeln('El numero min: ' , minimo(l));
     writeln (' ingrese un valor: ');
     readln(valor);
     writeln ('Que el valor que ingresamos este en la lista es: ', encontre(l,valor));
