@@ -11,8 +11,8 @@ cuando se lee el precio 0.
 b. Una vez almacenados, muestre los códigos de los productos pertenecientes a cada rubro.
 
 c. Genere un vector (de a lo sumo 30 elementos) con los productos del rubro 3. 
-Considerar que puede haber más o menos de 30 productos del rubro 3. 
-Si la cantidad de productos del rubro 3 es mayor a 30, almacenar los primeros 30 que están en la lista e ignore el resto.
+Considerar que puede haber más o menos de 20 productos del rubro 3. 
+Si la cantidad de productos del rubro 3 es mayor a 20, almacenar los primeros 20 que están en la lista e ignore el resto.
 
 d. Ordene, por precio, los elementos del vector generado en c) utilizando alguno de los dos
 métodos vistos en la teoría.
@@ -23,10 +23,10 @@ f. Calcule el promedio de los precios del vector resultante del punto d).
 }
 program cuatro;
 const
-	dimf = 30;
+	dimf = 8;
+	dimf2 = 30; 
 type
-	rangorubro = 1..8;
-	indice = 1..dimf;
+	rangorubro = 1..dimf;
 	producto = record
 		codprod: integer;
 		codrubro: rangorubro;
@@ -37,8 +37,9 @@ type
 		dato: producto;
 		sig: lista;
 	end;
-	vector = array [indice] of lista; {Realmente no se como se hace esto}
-
+	elementos = 1..dimf2;
+	vector = array [rangorubro] of lista; 
+	vector2 = array [elementos] of producto;
 procedure leerproducto(var p: producto);
 begin
 	readln(p.codprod);
@@ -53,7 +54,7 @@ begin
 	new(nue);
 	nue^.dato:= p;
 	act:= l;
-	while(act <> nil) and (act^.dato.codprod < p.prod) do begin
+	while(act <> nil) and (act^.dato.codprod < p.codprod) do begin
 		ant:= act;
 		act:= act^.sig;
 	end;
@@ -64,14 +65,21 @@ begin
 	nue^.sig:= act;
 end;
 
-procedure cargarlista(var l: lista);
+procedure inicializarvector(var v: vector; var v2: vector2; var j: integer);
 var
-	p: producto;
+	i: integer;
 begin
-	repeat
-		leerproducto(p);
-		insertarordenado(l,p);
-	until(p.precio = 0);
+	for i:= 1 to dimf do 
+		v[i]:= nil;
+	v2[j].codprod:= v[3]^.dato.codprod;
+	v2[j].codrubro:= v[3]^.dato.codrubro;
+	v2[j].precio:= v[3]^.dato.precio;
+	while (j < dimf) do begin
+		j:= j + 1;
+		v2[j].codprod:= v[3]^.dato.codprod;
+		v2[j].codrubro:= v[3]^.dato.codrubro;
+		v2[j].precio:= v[3]^.dato.precio;
+	end;
 end;
 
 procedure recorrerlista(l: lista);
@@ -82,28 +90,65 @@ begin
 	end;
 end;
 
-procedure inicializarvector(var v: vector);
+procedure cargarvector(var v : vector;var diml: integer; var v2: vector2; var j: integer);
 var
-	i: integer;
+	p: producto;
+	
 begin
-	for i:= 1 to dimf do 
-		v[i]:= nil;
+	inicializarvector(v,v2,j);
+	leerproducto(p);
+	while (p.precio <> 0) and (diml < dimf) do begin
+		diml:= diml + 1;
+		insertarordenado(v[p.codrubro],p);
+		leerproducto(p);
+	end;
+	recorrerlista(v[p.codrubro]);
 end;
 
-procedure cargarvector(var v: vector; var diml: integer);
+
+
+
+
+procedure ordenarporseleccion(var v: vector2; diml: integer);
+var
+	i,j,pos: integer;
+	item: producto;
 begin
-	inicializarvector(v);
-	while ()
-end; {No entiendo que poner en el cargar vector porque dice que puede haber mas de 30 elementos y son a lo sumo 30 no interpreto bien el enunciado.}
+	for i:= 1 to diml-1 do begin
+		pos:= i;
+		for j:= i+1 to dimf do 
+			if (v[j].precio < v[pos].precio) then 
+				pos:= j;
+		item:= v[pos];
+		v[pos]:= v[i];
+		v[i]:= item;
+	end;
+end;
+
+procedure informar(v: vector2; diml: integer);
+var
+	i,cant: integer;
+	prom: real;
+begin
+	cant:= 0;
+	prom:= 0;
+	for i:= 1 to diml do begin
+		writeln(v[i].precio);
+		cant:= cant + 1;
+		prom:= prom + v[i].precio;
+	end;
+	writeln(prom / cant);
+end;
 
 var
-	l: lista;
 	v: vector;
-	diml: integer;
+	v2: vector2;
+	diml,diml2: integer;
 begin
-	l:= nil;
 	diml:= 0;
-	cargarlista(l);
-	recorrerlista(l);
-	cargarvector(v,diml);
+	diml2:= 0;
+	cargarvector(v,diml,v2,diml2);
+	ordenarporseleccion(v2,diml2);
+	informar(v2,diml2);
 end.
+
