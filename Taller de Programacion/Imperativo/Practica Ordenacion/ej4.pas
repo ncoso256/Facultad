@@ -40,6 +40,7 @@ type
 	elementos = 1..dimf2;
 	vector = array [rangorubro] of lista; 
 	vector2 = array [elementos] of producto;
+
 procedure leerproducto(var p: producto);
 begin
 	readln(p.codprod);
@@ -65,34 +66,15 @@ begin
 	nue^.sig:= act;
 end;
 
-procedure inicializarvector(var v: vector; var v2: vector2; var j: integer);
+procedure inicializarvector(var v: vector; var v2: vector2);
 var
-	i: integer;
+	i,j: integer;
 begin
 	for i:= 1 to dimf do 
 		v[i]:= nil;
-	if (j > 0) and (j < 20) then begin
-		v2[j].codprod:= v[3]^.dato.codprod;
-		v2[j].codrubro:= v[3]^.dato.codrubro;
-		v2[j].precio:= v[3]^.dato.precio;
-	end
-	else begin
-		v2[j].codprod:= v[i]^.dato.codprod;
-		v2[j].codrubro:= v[i]^.dato.codrubro;
-		v2[j].precio:= v[i]^.dato.precio;
-	end;
-	while (j < dimf2) do begin
-		j:= j + 1;
-		if (j > 0) and (j < dimf2) then begin
-			v2[j].codprod:= v[3]^.dato.codprod;
-			v2[j].codrubro:= v[3]^.dato.codrubro;
-			v2[j].precio:= v[3]^.dato.precio;
-		end
-		else begin
-			v2[j].codprod:= v[i]^.dato.codprod;
-			v2[j].codrubro:= v[i]^.dato.codrubro;
-			v2[j].precio:= v[i]^.dato.precio;
-		end;
+	for j:= 1 to dimf2 do begin
+		v2[j].codprod:= 0;
+		v2[j].precio:= 0;
 	end;
 end;
 
@@ -104,16 +86,43 @@ begin
 	end;
 end;
 
+procedure cargarvector2(var v2: vector2; var diml2: integer; v: vector; i: integer);
+begin
+	if (diml2 > 0) and (diml2 < 20) then begin
+		v2[diml2].codprod:= v[3]^.dato.codprod;
+		v2[diml2].codrubro:= v[3]^.dato.codrubro;
+		v2[diml2].precio:= v[3]^.dato.precio;
+	end
+	else begin
+		v2[diml2].codprod:= v[i]^.dato.codprod;
+		v2[diml2].codrubro:= v[i]^.dato.codrubro;
+		v2[diml2].precio:= v[i]^.dato.precio;
+	end;
+	while (diml2 < dimf2) do begin
+		diml2:= diml2 + 1;
+		if (diml2 > 0) and (diml2 < dimf2) then begin
+			v2[diml2].codprod:= v[3]^.dato.codprod;
+			v2[diml2].codrubro:= v[3]^.dato.codrubro;
+			v2[diml2].precio:= v[3]^.dato.precio;
+		end
+		else begin
+			v2[diml2].codprod:= v[i]^.dato.codprod;
+			v2[diml2].codrubro:= v[i]^.dato.codrubro;
+			v2[diml2].precio:= v[i]^.dato.precio;
+		end;
+	end;
+end;
+
 procedure cargarvector(var v : vector;var diml: integer; var v2: vector2; var j: integer);
 var
-	p: producto;
-	
+	p: producto;	
 begin
-	inicializarvector(v,v2,j);
+	inicializarvector(v,v2);
 	leerproducto(p);
 	while (p.precio <> 0) and (diml < dimf) do begin
 		diml:= diml + 1;
 		insertarordenado(v[p.codrubro],p);
+		cargarvector2(v2,j, v,diml);
 		leerproducto(p);
 	end;
 	recorrerlista(v[p.codrubro]);
