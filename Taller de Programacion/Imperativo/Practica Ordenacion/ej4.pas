@@ -71,14 +71,27 @@ var
 begin
 	for i:= 1 to dimf do 
 		v[i]:= nil;
-	v2[j].codprod:= v[3]^.dato.codprod;
-	v2[j].codrubro:= v[3]^.dato.codrubro;
-	v2[j].precio:= v[3]^.dato.precio;
-	while (j < dimf) do begin
-		j:= j + 1;
+	if (j > 0) and (j < 20) then begin
 		v2[j].codprod:= v[3]^.dato.codprod;
 		v2[j].codrubro:= v[3]^.dato.codrubro;
 		v2[j].precio:= v[3]^.dato.precio;
+		while (j < dimf) do begin
+			j:= j + 1;
+			v2[j].codprod:= v[3]^.dato.codprod;
+			v2[j].codrubro:= v[3]^.dato.codrubro;
+			v2[j].precio:= v[3]^.dato.precio;
+		end;
+	end
+	else begin
+		v2[j].codprod:= v[i]^.dato.codprod;
+		v2[j].codrubro:= v[i]^.dato.codrubro;
+		v2[j].precio:= v[i]^.dato.precio;
+		while (j < dimf) do begin
+			j:= j + 1;
+			v2[j].codprod:= v[i]^.dato.codprod;
+			v2[j].codrubro:= v[i]^.dato.codrubro;
+			v2[j].precio:= v[i]^.dato.precio;
+		end;
 	end;
 end;
 
@@ -151,4 +164,3 @@ begin
 	ordenarporseleccion(v2,diml2);
 	informar(v2,diml2);
 end.
-
