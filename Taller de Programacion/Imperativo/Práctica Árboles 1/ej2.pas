@@ -25,7 +25,7 @@ con mayor cantidad total de unidades vendidas.
 d. Implemente un módulo que reciba el árbol generado en iii. y retorne el código de producto
 con mayor cantidad de ventas.}
 
-program arbol; 
+program arbolito; 
 type 
 	venta= record 
 		codproducto: integer; 
@@ -51,10 +51,13 @@ type
 		hi: arbol2; 
 		hd: arbol2; 
 	end; 
-	
+	venta3 = record
+		fec: integer;
+		cantvend: integer;
+	end;
 	lista=^nodolista; 
 	nodolista= record 
-		dato: venta; 
+		dato: venta3; 
 		sig: lista; 
 	end; 
 	
@@ -72,10 +75,13 @@ type
 
 procedure leer (var v: venta); 
 begin 
-	v.codproducto:= random (20); 
+	v.codproducto:= random (10); 
+	writeln (' el codigo del producto del primer arbol es: ', v.codproducto); 
 	if (v.codproducto <>0) then begin 
 		v.fecha:= 1 + random (31);
+		writeln (' la fecha es: ', v.fecha); 
 		v.cantvendidas:= 1+ random(50);
+		writeln (' la cantidad de vendidas es de: ', v.cantvendidas); 
 	end; 
 end; 
 
@@ -94,61 +100,83 @@ begin
 			insertar (a^.hd, v); 
 end;
 
-procedure cargararbol (var a: arbol); 
+procedure insertarsegundo(var a2: arbol2; v: venta);
+begin
+    if (a2 = nil) then begin
+        new(a2);
+        a2^.dato.codigo := v.codproducto;
+        a2^.dato.totalvendidas := v.cantvendidas;
+        a2^.hi := nil;
+        a2^.hd := nil;
+    end
+    else if (v.codproducto = a2^.dato.codigo) then
+        a2^.dato.totalvendidas := a2^.dato.totalvendidas + v.cantvendidas //El producto ya existe en el árbol: acumulamos la cantidad vendida. duda v.cantvendidas!
+    else if (v.codproducto < a2^.dato.codigo) then
+        insertarsegundo(a2^.hi, v)
+    else
+        insertarsegundo(a2^.hd, v);
+end;
+
+procedure agregarVentaALista (var l: lista; v: venta3); 
+var 
+	nue: lista; 
+begin 
+	new(nue); 
+	nue^.dato:= v; 
+	nue^.sig:= l; 
+	l:= nue; 
+end; 
+
+procedure crearregistro3(v: venta;var v3: venta3);
+begin
+	v3.fec:= v.fecha;
+	v3.cantvend:= v.cantvendidas;
+end;
+ 
+procedure insertartercero (var a3: arbol3; v: venta3; codigo: integer); 
+begin 
+	if (a3=nil) then begin 
+		new(a3);
+        a3^.dato.mascodigo := codigo;
+        a3^.dato.ventasrealizadas := nil;
+        agregarVentaALista(a3^.dato.ventasrealizadas, v); // agrego en la lista el registro 
+        a3^.hi := nil;
+        a3^.hd := nil; 
+	end
+	else
+		if (codigo = a3^.dato.mascodigo) then //El producto ya existe: agregamos la nueva venta a su lista
+        agregarVentaALista(a3^.dato.ventasrealizadas, v)
+    else 
+		if (codigo < a3^.dato.mascodigo) then
+        insertartercero(a3^.hi, v,codigo)
+    else
+        insertartercero(a3^.hd, v,codigo);
+end; 
+
+procedure cargararbol (var a: arbol; var a2: arbol2; var a3: arbol3); 
 var 
 	v: venta;
+	v3: venta3;
 begin 
-	a:= nil; 
 	leer(v);
 	while (v.codproducto <> 0) do begin 
 		insertar (a,v);
+		insertarsegundo (a2, v);
+		crearregistro3(v,v3);
+		insertartercero(a3, v3,v.codproducto); 
 		leer(v);
 	end; 
 end; 
 
 
-procedure leersegundo (var p: producto);
-begin 
-	p.codigo:= random (20);
-	p.totalvendidas:= random (50); 
-end; 
 
-procedure insertarsegundo (var a2: arbol2; p: prcducto);
-begin 
-	if (a2=nil) then begin 
-		new(a2); 
-		a^.dato:= p; 
-		a^.hi:= nil; 
-		a^.hd:=nil; 
-	end
-	else 
-		if (p.codigo < a2^.dato.codigo) then 
-			insertar(a^.hi, p)
-		else
-			insertar (a^.hd, p); 
-end; 
-
-procedure cargarsegundo (a2: arbol2); 
-var 
-	p: producto; 
-begin 
-	a2:= nil;
-	leersegundo(p); 
-	while (p.codigo <> 0) do begin 
-		insertar (a2, p); 
-		leersegundo (p);
-	end; 
-end; 
-
-procedure incisob (a: arbol; f: fechita; var totalcompras: integer); 
+procedure incisob (a: arbol; fechita: integer; var totalcompras: integer); 
 begin 
     if (a <> nil) then begin 
-        if (a^.dato.fecha = fechita) then begin 
-            totalcompras:= a^.dato.cantvendidas;
-        end
-        else 
-            incisob(a^.hi,f,totalcompras); 
-            incisob(a^.hd,f,totalcompras);
+        if (a^.dato.fecha = fechita) then  
+            totalcompras := totalcompras + a^.dato.cantvendidas;
+        incisob(a^.hi,fechita,totalcompras); 
+        incisob(a^.hd,fechita,totalcompras);
     end;
 end; 
 
@@ -161,47 +189,48 @@ begin
             maxvendidas:= a2^.dato.totalvendidas;
             maxcodigo:= a2^.dato.codigo;
         end;
-        incisob(a2^.hi,f,totalcompras);  
-        incisob(a2^.hd,f,totalcompras);
+        incisoc(a2^.hi,maxvendidas,maxcodigo);  
+        incisoc(a2^.hd,maxvendidas,maxcodigo);
     end; 
 end; 
  
 
-
-//d. Implemente un módulo que reciba el árbol generado en iii. y retorne el código de producto
-//con mayor cantidad de ventas.}
-
 procedure incisod (a3: arbol3; var maxventas: integer; var mayorcodigo: integer);
+var
+    l: lista;
 begin 
     if (a3<>nil) then begin 
-        if (maxventas < a3^.dato.ventasrealizadas^.dato.cantvendidas) then begin 
-            mayorcodigo:= a3^.dato.ventasrealizadas^.dato.codproducto;
-            maxventas:= a3^.dato.ventasrealizadas^.dato.cantvendidas;
-    end; 
+        l := a3^.dato.ventasrealizadas;
+        while (l <> nil) do begin
+            if (maxventas < l^.dato.cantvend) then begin 
+                mayorcodigo := a3^.dato.mascodigo;
+                maxventas := l^.dato.cantvend;
+            end;
+            l := l^.sig;
+        end;
         incisod (a3^.hi, maxventas, mayorcodigo);
         incisod (a3^.hd, maxventas, mayorcodigo);
-end; 
-
+	end; 
+end;
 
 var 
-	a, a2,a3: arbol; 
+	a: arbol; 
+	a2: arbol2; 
+	a3:arbol3; 
 	fechita, totalcompras, maxvendidas, maxcodigo, maxventas, mayorcodigo: integer; 
 begin 
-	totalcompras:= -1; 
+	totalcompras:= 0; 
     maxvendidas:= -1; 
     maxventas:= -1; 
 	a:= nil; 
 	a2:= nil; 
 	a3:= nil; 
-	cargararbol (a); 
-	cargarsegundo (a2); 
-	cargartercero (a3); 
+	cargararbol (a,a2,a3); 
 	writeln (' ingresa una fecha entre 1 y 31: ');
 	readln (fechita); 
 	incisob (a, fechita, totalcompras); 
-    writeln (' el total de compras en la fecha: ', fechita, 'es de: ', totalcompras);
+    writeln (' el total de compras en la fecha: ', fechita, ' es de : ', totalcompras);
     incisoc (a2, maxvendidas, maxcodigo);
-    writeln(maxvendidas, maxcodigo);
+    writeln(' el codgio que mas vendio fue: ', maxcodigo, ' con un total de ventas de: ', maxvendidas);
     incisod (a3, maxventas, mayorcodigo);
-    writeln(maxventas,mayorcodigo);
 end.
