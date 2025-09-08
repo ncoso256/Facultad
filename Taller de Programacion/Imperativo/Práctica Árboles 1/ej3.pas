@@ -21,7 +21,10 @@ coment profe: yo haría una lista para almacenar los legajos y promedios de los 
 program tres;
 type
     alumno = record
-        legajo, codigo, fecha, nota: integer;
+        legajo: integer;
+		codigo: integer;
+  		fecha: integer; 
+		nota: integer;
     end;
     lista = ^nodo;
     nodo = record
