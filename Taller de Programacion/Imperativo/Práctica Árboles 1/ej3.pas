@@ -1,4 +1,3 @@
-
 {3. Implementar un programa que contenga:
 
 a. Un módulo que lea información de los finales rendidos por los alumnos de la Facultad de
@@ -15,6 +14,8 @@ su cantidad de finales aprobados (nota mayor o igual a 4).
 
 d. Un módulo que reciba la estructura generada en a. y un valor real. Este módulo debe
 retornar los legajos y promedios de los alumnos cuyo promedio supera el valor ingresado.
+
+coment profe: yo haría una lista para almacenar los legajos y promedios de los alumnos q superen el valor ingresado
 }
 
 program tres;
@@ -27,7 +28,15 @@ type
         dato: alumno;
         sig: lista;
     end;
-    
+	reglegprom = record
+		legajos: integer;
+		promedios: real;
+	end;
+    lista2 = ^nodo2;
+    nodo2= record
+		datos: reglegprom;
+		sig: lista2;
+    end;
     registroarbol = record
         leg: integer; 
         finales: lista; 
@@ -39,6 +48,7 @@ type
         hi: arbol;
         hd: arbol;
     end;
+    
 
 procedure leeralumno(var a: alumno);
 begin
@@ -51,7 +61,7 @@ begin
         writeln (' la fecha es: ', a.fecha); 
         a.nota:= random(11);
         writeln (' la nota es: ', a.nota); 
-        writelnh ('-----------------------------------------------------------------');
+        writeln ('-----------------------------------------------------------------');
         writeln ('');
     end;
 end;
@@ -100,22 +110,25 @@ begin
 	end; 
 end; 
 
-//b. Un módulo que reciba la estructura generada en a. y retorne la cantidad de alumnos conlegajo impar.
-procedure incisoGG(l: lista ; var cantimpares: integer);
+//b. Un módulo que reciba la estructura generada en a. y retorne la cantidad de alumnos conlegajo impar. No hacia falta recorrer la lista....
+{procedure incisoGG(l: lista ; var cantimpares: integer);
 begin
+		if (l^.dato.legajo mod 2 <> 0) then 
+       cantimpares:= cantimpares + 1;
     if (l <> nil)then begin
-        if (l^.dato.legajo mod 2 <> 0) then 
-                cantimpares:= cantimpares + 1;
+				if (l^.dato.nota >= 4) then 
+					
         incisoGG(l^.sig, cantimpares);
     end;
-end;
-
+end;}
 
 procedure incisob (a: arbol; var cantimpares: integer);
 begin 
     if (a<>nil) then begin 
         incisob (a^.hi, cantimpares);
-        incisoGG(a^.dato.finales, cantimpares);
+        if (a^.dato.finales^.dato.legajo mod 2 <> 0) then 
+					cantimpares:= cantimpares + 1;
+        //incisoGG(a^.dato.finales, cantimpares);
         incisob (a^.hd, cantimpares); 
     end; 
 end; 
@@ -145,44 +158,51 @@ begin
 	end; 
 end; 
 
-procedure calcularPromedio(l: lista; valor: real; legajo: integer);
+procedure calcularPromedio(l: lista; valor: real; legajo: integer; var l2: lista2);
 var
     cantidad, notas: integer;
     promedio: real;
 begin
-cantidad := 0;
-notas := 0;
-while (l <> nil) do begin// recorro toda la lista de finales del alumno
-    cantidad := cantidad + 1;
-    notas := notas + l^.dato.nota;
-    l := l^.sig;
-end;
-  if (cantidad > 0) then begin // pregunto si el alumno rindio finales
-    promedio := notas / cantidad; // saco el promedio e informo lo que pide el inciso 
-    if (promedio > valor) then begin
-        writeln('El alumno con legajo ', legajo, 
-            'tiene un promedio mayor al de ', valor:0:2, ' con un total de: ', promedio:0:2);
-    end;
-end;
+	cantidad := 0;
+	notas := 0;
+	while (l <> nil) do begin// recorro toda la lista de finales del alumno
+		cantidad := cantidad + 1;
+		notas := notas + l^.dato.nota;
+	
+		l := l^.sig;
+		
+	end;
+	if (cantidad > 0) then begin // pregunto si el alumno rindio finales
+		promedio := notas / cantidad; // saco el promedio e informo lo que pide el inciso 
+		if (promedio > valor) then begin
+			writeln('El alumno con legajo ', legajo, 
+				'tiene un promedio mayor al de ', valor:0:2, ' con un total de: ', promedio:0:2);
+		end;
+	end;
+	l2^.datos.promedios:= promedio; 
+	l2^.datos.legajos:= legajo;
+	l2:= l2^.sig; 
 end;
 
 //d. Un módulo que reciba la estructura generada en a. y un valor real. Este módulo debe
-//retornar los legajos y promedios de los alumnos cuyo promedio supera el valor ingresado.
+//retornar los legajos y promedios de los alumnos cuyo promedio supera el valor ingresado. lista prom y legajo
 
-procedure incisod(a: arbol; valor: real);
+procedure incisod(a: arbol; valor: real; var l2: lista2);
 begin
-if (a <> nil) then begin
-    incisod(a^.hi, valor); // bajo a las hojas izquierdas
-    calcularPromedio(a^.dato.finales, valor, a^.dato.leg);// llamo al proceso y le paso, la lista, el valor que ingrese y el legajo actual del alumno 
-    incisod(a^.hd, valor);// bajo a la hojas derechas
-end;
+	if (a <> nil) then begin
+		incisod(a^.hi, valor,l2); // bajo a las hojas izquierdas
+		calcularPromedio(a^.dato.finales, valor, a^.dato.leg,l2);// llamo al proceso y le paso, la lista, el valor que ingrese y el legajo actual del alumno 
+		incisod(a^.hd, valor,l2);// bajo a la hojas derechas
+	end;
 end;
 
 var
     a: arbol;
     cantimpares: integer; 
     valor: real;
+    l2: lista2;
 begin
+	l2:= nil;
     randomize;
     a:= nil;
 	cantimpares:= 0; 
@@ -192,5 +212,5 @@ begin
     incisoc(a);
     writeln (' ingrese un valor real para el ultimo inciso:'); 
     readln (valor); 
-    incisod(a, valor); 
+    incisod(a, valor,l2); 
 end.
