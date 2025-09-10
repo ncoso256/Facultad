@@ -9,11 +9,11 @@ a. Un módulo que lea préstamos y retorne 2 estructuras de datos con la informa
 los préstamos. La lectura de los préstamos finaliza con ISBN 0. Las estructuras deben
 ser eficientes para buscar por ISBN.
 
-i. En una estructura cada préstamo debe estar en un nodo. Los ISBN repetidos
-insertarlos a la derecha.
+	i. En una estructura cada préstamo debe estar en un nodo. Los ISBN repetidos
+	insertarlos a la derecha.
 
-ii. En otra estructura, cada nodo debe contener todos los préstamos realizados al ISBN.
-(prestar atención sobre los datos que se almacenan).
+	ii. En otra estructura, cada nodo debe contener todos los préstamos realizados al ISBN.
+	(prestar atención sobre los datos que se almacenan).
 
 b. Un módulo recursivo que reciba la estructura generada en i. y retorne el ISBN más
 grande.
@@ -173,6 +173,85 @@ begin
 	end;
 end;
 
+function obtenermaxisbn(a: arbol): integer;
+begin
+	if (a = nil) then 
+		obtenermaxisbn:= -1
+	else
+		if (a^.hd = nil) then 
+			obtenermaxisbn:= a^.datoarbol.isbnlibro
+		else
+			obtenermaxisbn:= obtenermaxisbn(a^.hd);
+end;
+
+procedure incisob(a: arbol);
+var
+	isbngrande: integer;
+begin
+	isbngrande:= obtenermaxisbn(a);
+	if (isbngrande = -1) then 
+		writeln('Arbol vacio')
+	else
+		writeln(isbngrande);
+end;
+
+function obtenerminisbn(a2: arbol2): integer;
+begin
+	if (a2 = nil) then 
+		obtenerminisbn:= 9999
+	else
+		if (a2^.hi = nil) then 
+			obtenerminisbn:= a2^.dato2.isbn
+		else
+			obtenerminisbn:= obtenerminisbn(a2^.hi);
+end;
+
+procedure incisoc(a2: arbol2);
+var
+	isbnchico: integer;
+begin
+	isbnchico:= obtenerminisbn(a2);
+	if (isbnchico = 9999) then 
+		writeln('Arbol vacio')
+	else
+		writeln(isbnchico);
+end;
+
+procedure incisod(a:arbol);
+begin
+
+end;
+
+procedure incisoe(a2:arbol2);
+begin
+
+end;
+
+procedure incisof(a: arbol);
+begin
+
+end;
+
+procedure incisog(a2: arbol2);
+begin
+
+end;
+
+procedure incisoh(a2: arbol2);
+begin
+
+end;
+
+procedure incisoi(a: arbol);
+begin
+
+end;
+
+procedure incisoj(a2: arbol);
+begin
+
+end;
+
 var
 	a: arbol;
 	a2: arbol2;
@@ -180,4 +259,15 @@ begin
 	a:= nil;
 	a2:= nil;
 	cargararbol(a,a2);
+	incisob(a);
+	incisoc(a2);
+	incisod(a);
+	incisoe(a2)
+	incisof(a);
+	incisog(a2);
+	incisoh(a2);
+	incisoi(a);
+	incisoj(a2);
 end.
+
+{falta completar}
