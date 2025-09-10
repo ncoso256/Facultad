@@ -133,19 +133,22 @@ begin
 	v3.cantvend:= v.cantvendidas;
 end;
  
-procedure insertartercero (var a3: arbol3; v: venta3; codigo: integer); 
+procedure insertartercero (var a3: arbol3; v: venta; codigo: integer); 
+var
+	v3: venta3;
 begin 
 	if (a3=nil) then begin 
 		new(a3);
         a3^.dato.mascodigo := codigo;
         a3^.dato.ventasrealizadas := nil;
-        agregarVentaALista(a3^.dato.ventasrealizadas, v); // agrego en la lista el registro 
+        crearregistro3(v,v3);
+        agregarVentaALista(a3^.dato.ventasrealizadas, v3); // agrego en la lista el registro 
         a3^.hi := nil;
         a3^.hd := nil; 
 	end
 	else
 		if (codigo = a3^.dato.mascodigo) then //El producto ya existe: agregamos la nueva venta a su lista
-        agregarVentaALista(a3^.dato.ventasrealizadas, v)
+        agregarVentaALista(a3^.dato.ventasrealizadas, v3)
     else 
 		if (codigo < a3^.dato.mascodigo) then
         insertartercero(a3^.hi, v,codigo)
@@ -156,14 +159,12 @@ end;
 procedure cargararbol (var a: arbol; var a2: arbol2; var a3: arbol3); 
 var 
 	v: venta;
-	v3: venta3;
 begin 
 	leer(v);
 	while (v.codproducto <> 0) do begin 
 		insertar (a,v);
 		insertarsegundo (a2, v);
-		crearregistro3(v,v3);
-		insertartercero(a3, v3,v.codproducto); 
+		insertartercero(a3, v,v.codproducto); 
 		leer(v);
 	end; 
 end; 
@@ -231,6 +232,7 @@ begin
 	incisob (a, fechita, totalcompras); 
     writeln (' el total de compras en la fecha: ', fechita, ' es de : ', totalcompras);
     incisoc (a2, maxvendidas, maxcodigo);
-    writeln(' el codgio que mas vendio fue: ', maxcodigo, ' con un total de ventas de: ', maxvendidas);
+    writeln(' el codigo que mas vendio fue: ', maxcodigo, ' con un total de ventas de: ', maxvendidas);
     incisod (a3, maxventas, mayorcodigo);
 end.
+
