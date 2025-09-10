@@ -57,16 +57,36 @@ type
 		mes: rangomes;
 		cantdiasprest: integer;
 	end;
+	
+	prestamocorto = record
+		numsocio: integer;
+		dia: rangodia;
+		mes: rangomes;
+		cantdiasprest: integer;
+	end;
+	
 	lista = ^nodo;
 	nodo = record
-		dato: prestamo;
+		dato: prestamocorto;
 		sig: lista;
 	end;
+	
+	prestamoac = record
+		presac: lista;
+		isbn: integer;
+	end;
+	
 	arbol = ^nodoarbol;
 	nodoarbol= record
-		datoarbol: lista;
+		datoarbol: prestamo;
 		hi: arbol;
 		hd: arbol;
+	end;
+	arbol2 = ^nodoarbol2;
+	nodoarbol2 = record
+		dato2: prestamoac;
+		hi: arbol2;
+		hd: arbol2;
 	end;
 
 procedure leerprestamo(var p: prestamo);
@@ -81,8 +101,83 @@ begin
 	end;
 end;	
 
+procedure insertar(var a: arbol; p: prestamo);
+begin
+	if (a = nil) then begin
+		new(a);
+		a^.datoarbol:= p;
+		a^.hi:= nil;
+		a^.hd:= nil;
+	end
+	else
+		if (p.isbnlibro = a^.datoarbol.isbnlibro) then 
+			a^.datoarbol:= p
+		else
+			if (p.isbnlibro < a^.datoarbol.isbnlibro) then 
+				insertar(a^.hi, p)
+			else
+				insertar(a^.hd,p);
+				
+end;
+
+procedure agregaradelante(var l: lista; p2: prestamocorto);
+var
+	nue: lista;
+begin
+	new(nue);
+	nue^.dato:= p2;
+	nue^.sig:= l;
+	l:= nue;
+end;
+
+procedure crearregistro(p: prestamo; var p2: prestamocorto);
+begin
+	p2.numsocio:= p.numsocio;
+	p2.dia:= p.dia;
+	p2.mes:= p.mes;
+	p2.cantdiasprest:= p.cantdiasprest;
+end;
+
+procedure insertar2(var a2:arbol2; p:prestamo; isbn:integer);
+var
+	p2: prestamocorto;
+begin
+	if (a2 = nil) then begin
+		new(a2);
+		a2^.dato2.isbn:= isbn;
+		a2^.dato2.presac:= nil;
+		crearregistro(p,p2);
+		agregaradelante(a2^.dato2.presac,p2);
+		a2^.hi:= nil;
+		a2^.hd:= nil;
+	end
+	else
+		if (isbn = a2^.dato2.isbn) then
+			agregaradelante(a2^.dato2.presac,p2)
+		else
+			if (isbn < a2^.dato2.isbn) then
+				insertar2(a2^.hi,p,isbn)
+			else
+				insertar2(a2^.hd,p,isbn);
+end;	
+
+procedure cargararbol(var a: arbol; var a2: arbol2);
+var
+	p: prestamo;
+begin
+	leerprestamo(p);
+	while (p.isbnlibro <> 0) do begin
+		insertar(a,p);
+		insertar2(a2,p,p.isbnlibro);
+		leerprestamo(p);
+	end;
+end;
+
 var
 	a: arbol;
+	a2: arbol2;
 begin
 	a:= nil;
+	a2:= nil;
+	cargararbol(a,a2);
 end.
