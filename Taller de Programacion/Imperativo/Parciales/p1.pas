@@ -177,7 +177,6 @@ var
 begin
 	maxpasajes:= -1;
 	maxcod:= -1;
-	acu:= 0;
 	acu:= obtenermontotot(a);
 	maxpasajes:= obtenermaxpasajes(a,acu);
 	maxcod:= obtenermaxcod(a);
