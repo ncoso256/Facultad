@@ -176,10 +176,8 @@ end;
 	i: integer; 
 	begin 
 		for i:= 2000 to 2023 do begin
-		if (v[i] <> nil) then begin
 			writeln (' Para el anio: ', i); 
 			imprimirlista (v[i]); 
-		end; 	
 		end; 
 	end; 
 	
