@@ -126,9 +126,8 @@ function incisoc(v: vector; dni: integer):boolean;
 var
 	i: integer;
 begin
-	for i:= 1 to 12 do begin
+	for i:= 1 to 12 do 
 		incisoc:= buscarsihaydni(v[i],dni);
-	end;
 end;
 
 var
