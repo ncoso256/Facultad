@@ -28,7 +28,7 @@ public class VideosTaller {
         */
         
         nombreDelAlumno = "Noé"; // asignacion a un string 
-        nombreDelAlumno = nombreDelAlumno + " Coso";
+        nombreDelAlumno = nombreDelAlumno + " Coso"; // concatenar strings 
         nombreDelAlumno += " Facultad de informatica";
         
         boolean encontre = false;
