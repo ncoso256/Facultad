@@ -17,6 +17,7 @@ package tema1;
 
 //Paso 1. importar la funcionalidad para generar datos aleatorios
 import PaqueteLectura.GeneradorAleatorio;
+// importar el lector de datos
 import PaqueteLectura.Lector;
 
 public class Ej03Matrices {
