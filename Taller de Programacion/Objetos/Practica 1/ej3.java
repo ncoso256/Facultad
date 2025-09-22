@@ -24,7 +24,7 @@ public class Ej03Matrices {
 
     public static void main(String[] args) {
 	    //Paso 2. iniciar el generador aleatorio     
-	GeneradorAleatorio.iniciar();
+		GeneradorAleatorio.iniciar();
         //Paso 3. definir la matriz de enteros de 5x5 e iniciarla con nros. aleatorios 
         int [][] tabla = new int [5][5];
         int i,j;
