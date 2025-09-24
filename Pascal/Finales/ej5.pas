@@ -80,9 +80,20 @@ end;
 
 
 var
-	p: publicacion;
+	p: publicacion; 
 	v: vector;
+{
+calculo memoria estatica: 
+ 
+ publicacion = 51+51+6+6 = 51+51= 102+12 = 114
+ vector = 12*6 = 72
+ * 
+ * 
+ * 
+ total = 114 + 72 = 186 = memoria estatica
+}
 begin
 	inicializar(v);
 	procesarpublicaciones(p,v);
 end.
+
