@@ -39,8 +39,8 @@ public class Ejercicio4 {
         
         // con dos for preguntando si es distinto de 9 recorro la matriz y filtro entre mi variable piso y nro oficina
         
-        for (i = 0; piso != 9; i++){
-            for (j = 0; piso != 9; j++){
+        while (piso != 9 && piso < 8){
+            while (piso != 9 && nrooficina < 4){
                 if (piso >= 1 && piso <= 8){  // las dobles condiciones en java se hacen en una sola condicion.. no como en pascal 
                     if (nrooficina >= 1 && nrooficina <=4)
                         oficinas[piso-1][nrooficina-1] += 1; // incremento la cantidad de personas filtrando la informacion por piso y oficina 
