@@ -37,7 +37,7 @@ public class Ejercicio4 {
             for (j = 0; j < 4; j++)
                 oficinas[i][j] = 0;
         
-        // con dos for preguntando si es distinto de 9 recorro la matriz y filtro entre mi variable piso y nro oficina
+        // con dos while preguntando si es distinto de 9 recorro la matriz y filtro entre mi variable piso y nro oficina
         
         while (piso != 9 && piso < 8){
             while (piso != 9 && nrooficina < 4){
