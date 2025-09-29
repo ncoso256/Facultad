@@ -11,6 +11,7 @@ package videostaller;
  */
 import PaqueteLectura.Lector; // importar funcionalidad para la lectura
 import PaqueteLectura.GeneradorAleatorio; // importar funcionalidad Generador aleatorio
+import PaqueteLectura.*; // importar todas las funcionalidades del paquete de lectura (Lector, GeneradorAleatorio)
 
 public class VideosTaller {
 
