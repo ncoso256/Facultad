@@ -39,10 +39,11 @@ public class Ejercicio2 {
             dni = GeneradorAleatorio.generarInt(10000000) + 1;
             
             personas[diml] = new Persona(nombre,dni,edad); // para el vector del objeto persona creo un espacio de memoria para muchas personas con los campos nombre, dni y edad 
-             
-            
             
             System.out.println(personas[diml].toString()); // muestro lo que contiene el vector
+            
+            System.out.println("---------------------- "); 
+              
             diml++; // aumento la dimension logica
             edad = GeneradorAleatorio.generarInt(100); // y sigo evaluando la condicion con la edad
         }
@@ -59,8 +60,16 @@ public class Ejercicio2 {
         
         System.out.println("La cantidad de personas con mayor edad que 65 años es de: "+ cant); // informo 
         
+        System.out.println("---------------------- "); 
+        
         System.out.println("La persona con dni es: " + personaconmenordni.toString());
-            
+        
+        System.out.println("---------------------- "); 
+        
+        System.out.println("El menor dni es: " + min);
+        
+        System.out.println("---------------------- ");     
     }
     
 }
+
