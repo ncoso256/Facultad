@@ -33,13 +33,17 @@ public class Ejercicio4 {
         System.out.println("Ingrese el numero de oficina correspondiente: ");
         nrooficina = Lector.leerInt();
         
+        for (i = 0; i < 8 ; i++) // inicializo mi matriz en 0
+            for (j = 0; j < 4; j++)
+                oficinas[i][j] = 0;
+        
         // con dos for preguntando si es distinto de 9 recorro la matriz y filtro entre mi variable piso y nro oficina
         
         for (i = 0; piso != 9; i++){
             for (j = 0; piso != 9; j++){
                 if (piso >= 1 && piso <= 8){  // las dobles condiciones en java se hacen en una sola condicion.. no como en pascal 
                     if (nrooficina >= 1 && nrooficina <=4)
-                        oficinas[piso][nrooficina] += 1; // incremento la cantidad de personas filtrando la informacion por piso y oficina 
+                        oficinas[piso-1][nrooficina-1] += 1; // incremento la cantidad de personas filtrando la informacion por piso y oficina 
                 }
 
                 System.out.println("Ingrese el nro de piso correspondiente(cuando quiera dejar de leer aprete el 9): ");
