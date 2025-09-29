@@ -16,7 +16,7 @@ package ejercicio4;
  *
  * @author noe
  */
-import PaqueteLectura.Lector;
+import PaqueteLectura.*;
 public class Ejercicio4 {
 
 
@@ -30,29 +30,19 @@ public class Ejercicio4 {
        
         System.out.println("Ingrese el numero de piso correspondiente(cuando quiera dejar de leer aprete el 9): ");
         piso = Lector.leerInt(); 
-        System.out.println("Ingrese el numero de oficina correspondiente: ");
-        nrooficina = Lector.leerInt();
         
-        for (i = 0; i < 8 ; i++) // inicializo mi matriz en 0
-            for (j = 0; j < 4; j++)
-                oficinas[i][j] = 0;
+        // con un while preguntando si es distinto de 9 y filtro la matriz entre mi variable piso y nro oficina
         
-        // con dos while preguntando si es distinto de 9 recorro la matriz y filtro entre mi variable piso y nro oficina
-        
-        while (piso != 9 && piso < 8){
-            while (piso != 9 && nrooficina < 4){
-                if (piso >= 1 && piso <= 8){  // las dobles condiciones en java se hacen en una sola condicion.. no como en pascal 
-                    if (nrooficina >= 1 && nrooficina <=4)
-                        oficinas[piso-1][nrooficina-1] += 1; // incremento la cantidad de personas filtrando la informacion por piso y oficina 
-                }
-
-                System.out.println("Ingrese el nro de piso correspondiente(cuando quiera dejar de leer aprete el 9): ");
-                piso = Lector.leerInt();   
-                System.out.println("Ingrese el numero de oficina correspondiente: ");
-                nrooficina = Lector.leerInt(); 
-                
-                // vuelvo a leer la informacion para seguir iterando
+        while (piso != 9){
+            System.out.println("Ingrese el numero de oficina correspondiente: ");
+            nrooficina = Lector.leerInt(); 
+            if ((piso >= 1 && piso <= 8) &&(nrooficina >= 1 && nrooficina <=4)){  // las dobles condiciones en java se hacen en una sola condicion.. no como en pascal 
+                oficinas[piso-1][nrooficina-1] += 1; // incremento la cantidad de personas filtrando la informacion por piso y oficina 
             }
+                
+            // vuelvo a leer la informacion para seguir iterando
+            System.out.println("Ingrese el numero de piso correspondiente(cuando quiera dejar de leer aprete el 9): ");
+            piso = Lector.leerInt(); 
         }
         
         for (i = 0; i < 8; i++){ // imprimo la informacion del edificio...
@@ -63,3 +53,4 @@ public class Ejercicio4 {
     }
     
 }
+
