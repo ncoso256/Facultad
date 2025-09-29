@@ -23,11 +23,13 @@ public class Ej01Tabla2 {
         
         GeneradorAleatorio.iniciar(); // inicio el Generador Aleatorio
         int random; 
-        for (random = GeneradorAleatorio.generarInt(DF+1); random != 11; random = GeneradorAleatorio.generarInt(DF+1)) // en vez de hacer un while hago un for con el generador de aleatorios
+        random = GeneradorAleatorio.generarInt(12);
+        while (random != 11){
             System.out.println("2x" + random + "="+  tabla2[random]); // a cada valor multiplicado por 2 le asigno como indice de mi vector el valor random
+            random = GeneradorAleatorio.generarInt(12);
+        }
         System.out.println("Se genero el valor: " + random);
 
     }
     
 }
-
