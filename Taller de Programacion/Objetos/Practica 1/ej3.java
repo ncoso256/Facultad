@@ -13,18 +13,19 @@ imprima “No se encontró el elemento”.
 NOTA: Dispone de un esqueleto para este programa en Ej03Matrices.java
 
  */
+
 package tema1;
 
 //Paso 1. importar la funcionalidad para generar datos aleatorios
 import PaqueteLectura.GeneradorAleatorio;
-// importar el lector de datos
-import PaqueteLectura.Lector;
+import PaqueteLectura.Lector; 
 
 public class Ej03Matrices {
 
     public static void main(String[] args) {
-	    //Paso 2. iniciar el generador aleatorio     
-		GeneradorAleatorio.iniciar();
+         //Paso 2. iniciar el generador aleatorio     
+	GeneradorAleatorio.iniciar();
+        
         //Paso 3. definir la matriz de enteros de 5x5 e iniciarla con nros. aleatorios 
         int [][] tabla = new int [5][5];
         int i,j;
@@ -73,14 +74,25 @@ public class Ej03Matrices {
         System.out.println("Ingrese un numero entero: ");
         
         int num = Lector.leerInt();
-        
-        for (i = 0; i < 5 ; i++){ // recorro la matriz 
-            for (j = 0; j< 5 ; j++)
-                if (tabla[i][j] == num) // si el numero de la tabla es igual al numero que ingrese
-                    System.out.println(" ( "+ i + " , " + j + " ) "); // mostra la posicion 
-                else
-                    System.out.println("No se encontro el elemento"); // sino mostra que el elemento en esa iteracion no se encontro en las 25 iteraciones no se si es necesario..
+        int posi= -1 , posj = -1;
+        boolean encontre = false;
+        i = 0;
+        while (i < 5 && ! encontre){ // recorro la matriz
+            j = 0;
+            while (j < 5 && ! encontre){
+                if (tabla[i][j] == num){ // si el numero de la tabla es igual al numero que ingrese
+                    encontre = true; 
+                    posi = i;
+                    posj = j;
+                }
+                j++;  
+            }
+            i++;        
 
         }
+        if (encontre)
+                System.out.println(" ( "+ posi + " , " + posj + " ) "); // mostra la posicion 
+            else
+                System.out.println("No se encontro el elemento"); // sino mostra que el elemento en esa iteracion no se encontro
     }
 }
