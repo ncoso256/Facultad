@@ -1,6 +1,5 @@
-package tema2;
-
 /*
+
 3- Se realizará un casting para un programa de TV. El casting durará a lo sumo 5 días y en
 cada día se entrevistarán a 8 personas en distinto turno.
 
@@ -16,17 +15,55 @@ b) Informar para cada día y turno asignado, el nombre de la persona a entrevist
 NOTA: utilizar la clase Persona. Pensar en la estructura de datos a utilizar. Para comparar
 Strings use el método equals.
 
+
 */
+package tema2;
+import PaqueteLectura.*;
 
-/**
- *
- * @author noe
- */
-public class ejercicio3 {
+public class P2Ej3main {
 
 
-    public static void main(String[] args) {
-        Persona[][] casting = new Persona[5][8]; 
-    }
-    
-}
+    public static void main(String args[]) {
+        Persona [] [] tabla = new Persona [5][8];
+        int dimF=40;
+        int dimL=0;
+        int i,j, x;
+        int[] v = new int[5];
+        for (x=0; x<5; x++)
+            v[x] =0; 
+        String nombre; int edad; int dni;
+        nombre = GeneradorAleatorio.generarString(3);
+        i=0;
+        while (!nombre.equals("zzz")  && i< 5) {
+            
+            j = 0;
+            while(!nombre.equals("zzz")  && j< 8){
+                edad= GeneradorAleatorio.generarInt(100);
+                dni = GeneradorAleatorio.generarInt(10);
+                //int dia = dimL / 8;   // filas 
+                //int turno = dimL % 8; // columnas  
+
+                // en el caso de ser pos null vector contador entero 
+                v[i]++;
+                tabla [i][j]=  new Persona (nombre,dni,edad);
+                j++;
+                nombre = GeneradorAleatorio.generarString(3);
+            }
+            dimL++;  
+            i++;
+            nombre = GeneradorAleatorio.generarString(3);
+        }
+  
+        
+      
+        i=0;
+        while (i < dimL){
+            j=0;
+            while (j < v[i]){
+                System.out.println(tabla[i][j].toString());
+                j++;
+            }
+            i++;
+        }
+        
+     }}
