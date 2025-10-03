@@ -1,15 +1,7 @@
-package videostaller3;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package video3;
 
-/**
- *
- * @author noe
- */
+
 public class Fabrica {
     private String nombre;
     private String localidad;
@@ -17,11 +9,6 @@ public class Fabrica {
     public Fabrica(String nombre, String localidad) {
         this.nombre = nombre;
         this.localidad = localidad;
-    }
-
-    @Override
-    public String toString() {
-        return "Fabrica{" + "nombre=" + nombre + ", localidad=" + localidad + '}';
     }
     
     public String getNombre() {
@@ -39,5 +26,12 @@ public class Fabrica {
     public void setLocalidad(String localidad) {
         this.localidad = localidad;
     }
+
+    @Override
+    public String toString() {
+        return  "nombre: " + getNombre();
+    }
+    
     
 }
+
