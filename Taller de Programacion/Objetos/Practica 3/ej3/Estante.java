@@ -31,26 +31,17 @@ package tema3;
  */
 public class Estante {
     
-    private Libro[] libros = new Libro[20];
+    private Libro[] libros;
+    private int dimL;
 
     public Estante() {
+        this.libros= new Libro[20];
+        dimL = 0;
     }
-    
 
-    public int devolverLibro(){
-        int i;
-        int cantlibros = 0;
-        for (i = 0; i < libros.length ; i++){
-            if (libros[i] != null)
-                cantlibros++;
-        }
-        return cantlibros;
-          
-    }
     
     public boolean estaLleno(){
-        
-        if (this.devolverLibro() == 20) 
+        if (dimL == 20) 
             return true;
         return false;
         
@@ -58,17 +49,30 @@ public class Estante {
     
     public void agregarAlEstante(Libro unLibro){
         
-        if (!this.estaLleno())
-            libros[this.devolverLibro()+1] = unLibro;
+        if (!this.estaLleno()){
+            libros[dimL] = unLibro;
+            System.out.println("Libro agregado exitosamente");
+            dimL++;}
         else
             System.out.println("El estante esta lleno");
     }
     
-    public Libro devolverLibro(String unTitulo){
+    public int encontrar(String titulo){
         int i = 0;
-        while (!unTitulo.equals(libros[i].getTitulo())){
-            i++;
-        }
-        return libros[i];
+        while ((i < dimL) && (!libros[i].getTitulo().equals(titulo))){
+              i++;}
+        if (libros[i].getTitulo().equals(titulo))
+            return i;
+        else 
+            return -1;  
+    }
+    
+    public Libro devolverLibro(String unTitulo){
+        int buscar = encontrar(unTitulo);
+        if ( buscar> -1)
+            return libros[buscar];
+        else 
+                return null;
     }
 }
+
