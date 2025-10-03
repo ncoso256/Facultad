@@ -25,20 +25,7 @@ public class Libro {
          ISBN =  unISBN;
          precio = unPrecio;
     }
-    
-    public Libro(  String unTitulo,  String unaEditorial, Autor unPrimerAutor, String unISBN){
-         titulo = unTitulo;
-         editorial = unaEditorial; 
-         añoEdicion= 2015;
-         primerAutor = unPrimerAutor;
-         ISBN =  unISBN;
-         precio = 100;
-    }
-    
-    public Libro(){
    
-    }
-        
     public String getTitulo(){
         return titulo;
     }
