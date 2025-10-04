@@ -32,9 +32,9 @@ public class main3 {
         
         e.agregarAlEstante(l);
         
+        Libro l2 = e.devolverLibro("Mujercitas");
         
-       Libro  l2 = e.devolverLibro("Mujercitas");
-        l2.toString();
+        System.out.println(l2.toString()); 
         
     }
     
