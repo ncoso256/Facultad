@@ -37,15 +37,13 @@ public class Hotel {
         this.clientes = clientes;
     }
 
-    @Override
-    public String toString() {
+    public String toString(int uni) {
         int i;
-        i = 0;
+        i = uni;
         String aux;
         aux = "Habitación: " + i +  "  " + "costo: " + hab.getCostopornoche() + "  " + " libre u ocupada: " + hab.isestaOkupa();
         if (clientes != null)
-            aux += "info del cliente: " + this.clientes;
+            aux += "info del cliente: " + this.clientes[i];
         return aux;
     }
 }
-
