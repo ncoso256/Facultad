@@ -41,7 +41,7 @@ public class Main4 {
             monto = Lector.leerDouble();
             System.out.println(hab.aumentarMonto(monto));
             
-            System.out.println(h.toString());
+            System.out.println(h.toString(i));
         }
             
     }
