@@ -39,7 +39,8 @@ public class Hotel {
 
     @Override
     public String toString() {
-        int i = 0;
+        int i;
+        i = 0;
         String aux;
         aux = "Habitación: " + i +  "  " + "costo: " + hab.getCostopornoche() + "  " + " libre u ocupada: " + hab.isestaOkupa();
         if (clientes != null)
@@ -47,3 +48,4 @@ public class Hotel {
         return aux;
     }
 }
+
