@@ -12,9 +12,9 @@ public abstract class Sistema {
         this.ano = A;
         this.temperatura = new double[N][12];
         
-        int i,j; 
-        for (i = 0; i < temperatura.length; i++){
-            for(j = 0; j < 12; j++){
+         
+        for (int i = 0; i < temperatura.length; i++){
+            for(int j = 0; j < 12; j++){
                 this.temperatura[i][j] = 99999;
             }
         }
@@ -51,8 +51,9 @@ public abstract class Sistema {
     }
     
     public double devolverTemperatura(int anio, int mes){
-        if (this.temperatura[anio][mes] != 99999)
+        if (this.temperatura[anio][mes] != 99999){
             return this.temperatura[anio][mes];
+        }
         return 99999;
     }
     
@@ -62,9 +63,9 @@ public abstract class Sistema {
         int anio = 0;
         double max = -1;
         
-        int i,j;
-        for(i = 0; i < temperatura.length; i++){
-            for(j = 0; j< 12;j++){
+        
+        for(int i = 0; i < temperatura.length; i++){
+            for(int j = 0; j< 12;j++){
                 if (this.temperatura[i][j]> max){
                     max = this.temperatura[i][j];
                     mes = j;
