@@ -20,10 +20,10 @@ public class SistemaAños extends Sistema{
         
         System.out.println(super.getEsta().getNom()+ " " + super.getEsta().getLatitud() + " " + super.getEsta().getLongitud());
         
-        int i,j;
-        for (i = 0; i < t.length; i++){
+        
+        for (int i = 0; i < t.length; i++){
             double total = 0;
-            for (j = 0; j < 12 ; j++){
+            for (int j = 0; j < 12 ; j++){
                 if (t[i][j] != 99999)
                     total += t[i][j];
             }
@@ -31,4 +31,6 @@ public class SistemaAños extends Sistema{
             System.out.println("año " + temp + " temperatura " + total/ 12 + "\n");
         }
     }
+}
+
 }
