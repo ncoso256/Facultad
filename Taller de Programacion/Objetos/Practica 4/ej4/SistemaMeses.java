@@ -16,14 +16,14 @@ public class SistemaMeses extends Sistema{
     
     public void toString2(){
         double[][] t = super.getTemperatura();
-        int temp;
+        
         
         System.out.println(super.getEsta().getNom()+ " " + super.getEsta().getLatitud() + " " + super.getEsta().getLongitud());
         
-        int i,j;
-        for (j = 0; j < 12; j++){
+        
+        for (int j = 0; j < 12; j++){
             double total = 0;
-            for (i = 0; i < t.length ; i++){
+            for (int i = 0; i < t.length ; i++){
                 if (t[i][j] != 99999)
                     total += t[i][j];
             }
