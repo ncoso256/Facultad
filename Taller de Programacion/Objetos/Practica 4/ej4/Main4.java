@@ -82,7 +82,7 @@ public class Main4 {
 
   
     public static void main(String[] args) {
-       Estacion esta = new Estacion("La plata",256,456);
+       Estacion esta = new Estacion("La plata",123,456);
        SistemaAños sa = new SistemaAños(esta,2021,3);
        SistemaMeses sm = new SistemaMeses(esta,2021,3);
        sa.registrarTemperatura(2, 4, 25);
@@ -93,3 +93,4 @@ public class Main4 {
     }
     
 }
+
