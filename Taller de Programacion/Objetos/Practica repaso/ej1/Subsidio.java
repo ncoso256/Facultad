@@ -12,12 +12,11 @@ package practicarepaso1;
 public class Subsidio {
     private double monto;
     private String motivo;
-    private boolean otorgado;
+    private boolean otorgado = false;
     
     public Subsidio(double unMonto, String unMotivo){
         this.monto = unMonto;
         this.motivo = unMotivo;
-        this.otorgado = false;
     }
 
     public double getMonto() {
@@ -33,3 +32,4 @@ public class Subsidio {
     }
     
 }
+
