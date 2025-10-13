@@ -43,11 +43,17 @@ public class PracticaRepaso {
 
 
     public static void main(String[] args) {
+       GeneradorAleatorio.iniciar();
+        
        Proyecto p = new Proyecto("Proyecto N", 3, "Facu");
        
        Investigador i1 = new Investigador("Matias", GeneradorAleatorio.generarInt(5)+1, "especial");
        Investigador i2 = new Investigador("Carlos", GeneradorAleatorio.generarInt(5)+1, "Magico");
        Investigador i3 = new Investigador("Roberto", GeneradorAleatorio.generarInt(5)+1, "Tiro libre");
+       
+       p.agregarInvestigador(i1);
+       p.agregarInvestigador(i2);
+       p.agregarInvestigador(i3);
        
        Subsidio s1 = new Subsidio(30, "la base de datos");
        Subsidio s2 = new Subsidio(55, "la pagina web");
@@ -62,8 +68,6 @@ public class PracticaRepaso {
        i3.agregarSubsidio(s2);
        
        i1.otorgarTodos("Matias");
-       i2.otorgarTodos("Carlos");
-       i3.otorgarTodos("Roberto");
        
        System.out.println(p.toString());
        
