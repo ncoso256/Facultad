@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package practicarepaso1;
 
-/**
- *
- * @author Usuario
- */
 public class Investigador {
     private String nombre;
     private int categoria;
@@ -47,9 +39,10 @@ public class Investigador {
         }
     }
     
+    @Override
     public String toString(){
         String aux;
-        aux = this.nombre + this.categoria + this.especialidad+ this.obtenerMontoTotal();
+        aux = "Nombre investigador: "+ this.nombre +"  "+ " Categoria:  " +this.categoria +"  "+ " Especialidad: "+ this.especialidad+"  "+ " Monto Total:  " +this.obtenerMontoTotal();
         return aux;
     }
 }
