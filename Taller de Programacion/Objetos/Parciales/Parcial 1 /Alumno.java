@@ -36,6 +36,10 @@ public class Alumno {
         this.cantTareas = cantTareas;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+    
     @Override
     public String toString() {
         return "Alumno{" + "nombre=" + nombre + ", cantTareas=" + cantTareas + ", sumaNotas=" + sumaNotas + '}';
@@ -44,3 +48,4 @@ public class Alumno {
     
     
 }
+
