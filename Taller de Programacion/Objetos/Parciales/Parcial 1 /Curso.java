@@ -21,7 +21,7 @@ public abstract class Curso {
         this.costo = unCosto;
         this.comienzo = unComienzo;
         this.M = 0;
-        this.alumnos = new Alumno[this.M];
+        this.alumnos = new Alumno[M];
     }
    
     public int inscribirAlumno(Alumno a){
@@ -44,11 +44,11 @@ public abstract class Curso {
         return M;
     }
     
-    public void actualizarRendimiento(String nombre, int x){
+    public void actualizarRendimiento(String unnombre, int x){
         int i;
         int suma;
         for (i = 0; i < this.M; i++){
-            if (this.nombre.equals(nombre)){
+            if (this.getAlumnos()[i].getNombre().equals(unnombre)){
                 suma = alumnos[i].getSumaNotas();
                 alumnos[i].setSumaNotas(suma + x);
                 alumnos[i].setCantTareas(+1);
@@ -73,3 +73,4 @@ public abstract class Curso {
         return aux;
     }
 }
+
