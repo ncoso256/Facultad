@@ -39,6 +39,14 @@ public class JavaApplication6 {
             
         }
         
+        System.out.println(cs.toString());
+        if (cs.estaFormado()){
+            System.out.println("esta bien formado");
+        }
+        else{
+            System.out.println("no esta bien formado");
+        }
+        
         System.out.println(ch.toString());
         if (ch.estaFormado())
             System.out.println("esta bien formado");
