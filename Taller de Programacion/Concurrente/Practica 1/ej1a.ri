@@ -1,0 +1,49 @@
+programa ej1a
+procesos
+  proceso recorrerAvenida(E numAv: numero; ES cantidadFlores: numero ;ES sinCantidadFlores: numero)
+  comenzar
+    Pos(numAv, 1)
+    repetir 99
+      si HayFlorEnLaEsquina
+        tomarFlor
+        cantidadFlores:= cantidadFlores + 1
+      sino
+        sinCantidadFlores:= sinCantidadFlores + 1
+      mover
+    repetir cantidadFlores
+      depositarFlor  
+  fin
+areas
+  ciudad: AreaC (1,1,100,100)
+robots
+  robot robot1
+  variables
+    cantFlores: numero
+    sinFlores: numero
+    cantFlores2: numero
+    sinFlores2: numero
+    cantFlores3:numero
+    sinFlores3: numero
+  comenzar
+    cantFlores:=0
+    sinFlores:= 0
+    cantFlores2:= 0
+    sinFlores2:= 0
+    cantFlores3:= 0
+    sinFlores3:= 0
+    recorrerAvenida(1,cantFlores,sinFlores)
+    Informar(cantFlores)
+    Informar(sinFlores)
+    recorrerAvenida(3,cantFlores2,sinFlores2)
+    Informar(cantFlores2)
+    Informar(sinFlores2)
+    recorrerAvenida(5,cantFlores3,sinFlores3)
+    Informar(cantFlores3)
+    Informar(sinFlores3)
+  fin
+variables
+  R_info: robot1
+comenzar
+  AsignarArea(R_info, ciudad)
+  Iniciar(R_info, 1,1)
+fin
