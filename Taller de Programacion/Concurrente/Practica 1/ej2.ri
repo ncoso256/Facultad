@@ -1,0 +1,89 @@
+programa ejemplo
+procesos
+  proceso recorrer1(ES cantpapeles: numero)
+  comenzar
+    repetir 20
+      si HayPapelEnLaEsquina
+        tomarPapel
+        cantpapeles:= cantpapeles + 1
+      mover
+  fin
+  proceso recorrer2(ES cantpapeles: numero)
+  comenzar
+    derecha
+    repetir 20
+      si HayPapelEnLaEsquina
+        tomarPapel
+        cantpapeles:= cantpapeles + 1
+      mover
+  fin
+  proceso recorrer3(ES cantpapeles: numero)
+  comenzar
+    repetir 2
+      derecha
+    repetir 20
+      si HayPapelEnLaEsquina
+        tomarPapel
+        cantpapeles:= cantpapeles+1
+      mover
+  fin
+  proceso recorrer4(ES cantpapeles: numero)
+  comenzar
+    repetir 3
+      derecha
+    repetir 20
+      si HayPapelEnLaEsquina
+        tomarPapel
+        cantpapeles:= cantpapeles + 1
+      mover
+  fin
+areas
+  ciudad: AreaC (1,1,100,100)
+robots
+  robot robot1
+  variables
+    cantPapeles: numero
+  comenzar
+    cantPapeles:= 0
+    recorrer1(cantPapeles)
+    Informar(cantPapeles)
+  fin
+  robot robot2
+  variables
+    cantpapeles: numero
+  comenzar
+    cantpapeles:= 0
+    recorrer2(cantpapeles)
+    Informar(cantpapeles)
+  fin
+  robot robot3
+  variables
+    cantpapeles: numero
+  comenzar
+    cantpapeles:= 0 
+    recorrer3(cantpapeles)
+    Informar(cantpapeles)
+  fin
+  robot robot4
+  variables
+    cantpapeles: numero
+  comenzar
+    cantpapeles:= 0
+    recorrer4(cantpapeles)
+    Informar(cantpapeles)
+  fin
+variables
+  tipo1: robot1
+  tipo2: robot2
+  tipo3: robot3
+  tipo4: robot4
+comenzar
+  AsignarArea(tipo1, ciudad)
+  AsignarArea(tipo2,ciudad)
+  AsignarArea(tipo3,ciudad)
+  AsignarArea(tipo4,ciudad)
+  Iniciar(tipo1, 10,10)
+  Iniciar(tipo2,10,30)
+  Iniciar(tipo3,30,30)
+  Iniciar(tipo4,30,10)
+fin
