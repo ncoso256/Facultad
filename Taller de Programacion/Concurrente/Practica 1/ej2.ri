@@ -3,7 +3,7 @@ procesos
   proceso recorrer1(ES cantpapeles: numero)
   comenzar
     repetir 20
-      si HayPapelEnLaEsquina
+      mientras HayPapelEnLaEsquina
         tomarPapel
         cantpapeles:= cantpapeles + 1
       mover
@@ -12,7 +12,7 @@ procesos
   comenzar
     derecha
     repetir 20
-      si HayPapelEnLaEsquina
+      mientras HayPapelEnLaEsquina
         tomarPapel
         cantpapeles:= cantpapeles + 1
       mover
@@ -22,7 +22,7 @@ procesos
     repetir 2
       derecha
     repetir 20
-      si HayPapelEnLaEsquina
+      mientras HayPapelEnLaEsquina
         tomarPapel
         cantpapeles:= cantpapeles+1
       mover
@@ -32,7 +32,7 @@ procesos
     repetir 3
       derecha
     repetir 20
-      si HayPapelEnLaEsquina
+      mientras HayPapelEnLaEsquina
         tomarPapel
         cantpapeles:= cantpapeles + 1
       mover
